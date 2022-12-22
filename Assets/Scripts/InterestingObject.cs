@@ -38,4 +38,8 @@ public class InterestingObject : MonoBehaviour
     {
         Locked = false;
     }
+
+    private void OnDestroy() {
+        ObjectsOnMap.Remove(this);
+    }
 }

@@ -9,6 +9,16 @@ public class AnimalAI : MonoBehaviour
     /// </summary>
     public List<InterestingObjectType> InterestingObjectTypes = new();
 
+    /// <summary>
+    /// Если true - отключает предоставляемый AnimalAI компонентом интеллект
+    /// </summary>
+    public bool DisableAI = false;
+
+    /// <summary>
+    /// Если false - бродит без цели и не взаимодействует с интересующими объектами (Напр. не голодное)
+    /// </summary>
+    public bool InterestedInTarget = true;
+
     [SerializeField]
     private float searchObjectCooldown = 0.5f;
     private float lastObjectSearch = 0f;
@@ -29,19 +39,29 @@ public class AnimalAI : MonoBehaviour
 
     [HideInInspector]
     public Rigidbody Rigidbody;
+    private SensorToolkit.RangeSensor interestingObjectSensor;
     public void Start()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        interestingObjectSensor = GetComponentInChildren<SensorToolkit.RangeSensor>();
+
+        lastJump = Random.Range(-1f, 0f);
     }
 
     private void FixedUpdate()
     {
+        if (DisableAI)
+            return;
+        
         //  Периодическое обновление ближайшего таргета
-        lastObjectSearch += Time.deltaTime;
-        if (lastObjectSearch >= searchObjectCooldown)
+        if (InterestedInTarget)
         {
-            lastObjectSearch = 0f;
-            Target = FindInterestingObject();
+            lastObjectSearch += Time.deltaTime;
+            if (lastObjectSearch >= searchObjectCooldown)
+            {
+                lastObjectSearch = 0f;
+                Target = FindInterestingObject();
+            }
         }
             
         //  Движение
@@ -49,11 +69,27 @@ public class AnimalAI : MonoBehaviour
         if (lastJump >= jumpCooldown)
         {
             lastJump = 0f;
-            if (Target) // К найденной цели
+            if (Target && InterestedInTarget) // К найденной цели
+            {
+                //  Если цель уже рядом
+                interestingObjectSensor.Pulse();
+                List<InterestingObject> foundObjs = interestingObjectSensor.GetDetectedByComponent<InterestingObject>();
+                if (foundObjs.Count > 0)
+                {
+                    foreach (InterestingObject obj in foundObjs)
+                    {
+                        if (!InterestingObjectTypes.Contains(obj.Type))
+                            continue;
+                        //  TODO: Взаимодействие с целью здесь
+                        return;
+                    }
+                }
+                //  Если цель далеко - продолжать движение
                 JumpTo(Target.transform.position);
+            }
             else // Бесцельная ходьба по полю
             {
-                //  TODO: Бродить по полю
+                JumpTo(AnimalsArea.GetRandomPoint());
             }
         }
     }
@@ -96,7 +132,7 @@ public class AnimalAI : MonoBehaviour
 
         if (waitRotation && (Quaternion.Angle(transform.rotation, rotation) > 15f))
         {
-            Rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            Rigidbody.AddForce(Vector3.up * jumpHeight * 0.5f, ForceMode.Impulse);
             return;
         }
 
@@ -105,6 +141,4 @@ public class AnimalAI : MonoBehaviour
         direction.y = jumpHeight;
         Rigidbody.AddForce(direction, ForceMode.Impulse);
     }
-
-    
 }
