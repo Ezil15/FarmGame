@@ -64,7 +64,7 @@ MonoBehaviour:
   SensorRange: 0.3
   DetectsOnLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   SensorUpdateMode: 1
   CheckInterval: 1
   InitialBufferSize: 20
@@ -330,6 +330,7 @@ GameObject:
   - component: {fileID: 4978677789158837751}
   - component: {fileID: 4978677789158837704}
   - component: {fileID: 4978677789158837705}
+  - component: {fileID: 4436016360983595054}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Untagged
@@ -396,6 +397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InterestingObjectTypes: 00000000
+  DisableAI: 0
+  InterestedInTarget: 1
   searchObjectCooldown: 1
   Target: {fileID: 0}
   jumpForceModifier: 1
@@ -403,6 +406,23 @@ MonoBehaviour:
   jumpHeight: 1.5
   rotationModifier: 10
   Rigidbody: {fileID: 0}
+--- !u!114 &4436016360983595054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4978677789158837707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ebd3d0e99694d469bd7cbafb9daaad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSatiety: 100
+  lowSatiety: 80
+  minHungerTick: 1
+  maxHungerTick: 2
+  AnimalAI: {fileID: 0}
 --- !u!1 &4978677789215539796
 GameObject:
   m_ObjectHideFlags: 0
