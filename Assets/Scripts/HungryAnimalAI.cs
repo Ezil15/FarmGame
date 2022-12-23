@@ -51,8 +51,9 @@ public class HungryAnimalAI : MonoBehaviour
 
         if (Satiety <= 0)
         {
+            //  Смерть
             AnimalAI.DisableAI = true;
-            //  TODO: Смерть
+            Destroy(gameObject);
             return;
         }
 
@@ -80,5 +81,11 @@ public class HungryAnimalAI : MonoBehaviour
     public bool IsHungry()
     {
         return satiety <= lowSatiety;
+    }
+
+    public void OnFindEat(GameObject eat)
+    {
+        int satiety = eat.GetComponent<EatableObject>().Eat();
+        AddSatiety(satiety);
     }
 }

@@ -397,6 +397,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InterestingObjectTypes: 00000000
+  OnReachTargetEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4436016360983595054}
+        m_TargetAssemblyTypeName: HungryAnimalAI, Assembly-CSharp
+        m_MethodName: OnFindEat
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   DisableAI: 0
   InterestedInTarget: 1
   searchObjectCooldown: 1
@@ -418,8 +433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ebd3d0e99694d469bd7cbafb9daaad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSatiety: 100
-  lowSatiety: 80
+  MaxSatiety: 20
+  lowSatiety: 12
   minHungerTick: 1
   maxHungerTick: 2
   AnimalAI: {fileID: 0}

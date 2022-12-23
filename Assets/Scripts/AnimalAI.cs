@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class OnAnimalReachTargetEvent : UnityEvent<GameObject> {}
 
 public class AnimalAI : MonoBehaviour
 {
@@ -8,6 +12,8 @@ public class AnimalAI : MonoBehaviour
     /// Список объектов которые интересуют животное
     /// </summary>
     public List<InterestingObjectType> InterestingObjectTypes = new();
+
+    public OnAnimalReachTargetEvent OnReachTargetEvent;
 
     /// <summary>
     /// Если true - отключает предоставляемый AnimalAI компонентом интеллект
@@ -80,7 +86,10 @@ public class AnimalAI : MonoBehaviour
                     {
                         if (!InterestingObjectTypes.Contains(obj.Type))
                             continue;
-                        //  TODO: Взаимодействие с целью здесь
+                        
+                        if (OnReachTargetEvent != null)
+                            OnReachTargetEvent.Invoke(Target);
+
                         return;
                     }
                 }
