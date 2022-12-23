@@ -5,12 +5,10 @@ using UnityEngine;
 public class MovementScript : MonoBehaviour
 {
     public CharacterController Controller;
-
     public float Speed = 6f;
-    public float SmoothTime = 0.1f;
+    public float SmoothTime = 0.3f;
     public float SmoothVelocity;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         float Horizontal = Input.GetAxisRaw("Horizontal");
@@ -21,8 +19,9 @@ public class MovementScript : MonoBehaviour
         if(Direction.magnitude >= 0.1f)
         {
             float TargetAngle = Mathf.Atan2(Direction.x, Direction.y) * Mathf.Rad2Deg;
-            float Angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, TargetAngle, ref SmoothVelocity, SmoothTime);
-            transform.rotation = Quaternion.Euler(0f, Angle, 0f);
+            //float Angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, TargetAngle, ref SmoothVelocity, SmoothTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Direction), SmoothTime);
+            //transform.rotation = Quaternion.Euler(0f, Angle, 0f);
 
             Controller.Move(Direction * Speed * Time.deltaTime);
         }
