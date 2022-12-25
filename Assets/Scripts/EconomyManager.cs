@@ -22,4 +22,9 @@ public class EconomyManager : MonoBehaviour
 
         Destroy(this.gameObject);
     }
+
+    public void ModifyCoins(int count)
+    {
+        Coins += count;
+    }
 }
