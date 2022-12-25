@@ -8,7 +8,7 @@ public class DragManager : MonoBehaviour
     public GameObject cursor;
     public float velocitySensetive = 0.1f;
     public float velocityPower = 10f;
-    
+    public float maxVelocity = 5f;    
     private Plane plane = new Plane(Vector3.up, 0);
     private Vector3 oldCursorPos = Vector3.zero;
     private float lastPosCheck;
@@ -42,19 +42,17 @@ public class DragManager : MonoBehaviour
                 {
                     objectInHand = raycastHit.transform.gameObject.GetComponent<DragComponent>();
                     objectInHand.Attach(cursor.GetComponent<Rigidbody>());
-                    // objectInHand.body.useGravity = false;
-                    // objectInHand.body.freezeRotation = true;
-                    // lastPosCheck = Time.deltaTime;
+
                 }
             }
         } //Если объект отпустили
         else if (Input.GetMouseButtonUp(0) && objectInHand != null)
         {
-            // Vector3 newVelocity = GetCursorPosition() - oldCursorPos;
-            // objectInHand.body.useGravity = true;
-            // objectInHand.body.freezeRotation = false;
-            // objectInHand.body.velocity = newVelocity*velocityPower;
+
             objectInHand.Dettach();
+            Vector3 newVelocity = GetCursorPosition()-oldCursorPos;
+            newVelocity = Vector3.ClampMagnitude(newVelocity*velocityPower, maxVelocity);
+            objectInHand.body.velocity = newVelocity;
             objectInHand = null;
         }
 
@@ -62,25 +60,15 @@ public class DragManager : MonoBehaviour
     }
     void FixedUpdate() 
     {
+        lastPosCheck += Time.deltaTime;
+
         cursor.transform.position = GetCursorPosition();
-        // lastPosCheck += Time.deltaTime;
-        if (objectInHand)
+
+        if (lastPosCheck > velocitySensetive)
         {
-            // Vector3 newObjectPosition = cursor.transform.position;
-            // Vector3 mouseVelocity = GetCursorPosition() - oldCursorPos;
-            // newObjectPosition.y -= 0.5f;
-            // objectInHand.transform.position = newObjectPosition;
-            // Vector3 velocity = (GetCursorPosition()- objectInHand.transform.position);
-            // Quaternion lookRotation = Quaternion.LookRotation(Vector3.up-mouseVelocity);
-            // lookRotation *= Quaternion.Euler(90, 0, 0);
-            // objectInHand.transform.rotation = Quaternion.Slerp(objectInHand.transform.rotation, lookRotation, Time.deltaTime * 2);
-                                    
+            oldCursorPos = GetCursorPosition();
+            lastPosCheck = 0f;
         }
-        // if (lastPosCheck > velocitySensetive)
-        // {
-        //     oldCursorPos = GetCursorPosition();
-        //     lastPosCheck = 0f;
-        // }
         
     }
 }

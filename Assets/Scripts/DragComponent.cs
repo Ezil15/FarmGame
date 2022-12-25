@@ -6,7 +6,7 @@ public class DragComponent : MonoBehaviour
 {
     public float mass = 10f;
     public Rigidbody body;
-    public HingeJoint joint;
+    public ConfigurableJoint joint;
     
     void Start()
     {
@@ -15,14 +15,20 @@ public class DragComponent : MonoBehaviour
 
     public void Attach(Rigidbody body)
     {
-        joint = gameObject.AddComponent<HingeJoint>();
-        joint.connectedBody = body;
-        joint.useSpring = true;
+        transform.rotation = Quaternion.Euler(0,0,0);
+        
+        joint = gameObject.AddComponent<ConfigurableJoint>();
         joint.anchor = new Vector3(0,1,0);
         joint.autoConfigureConnectedAnchor = false;
-        JointSpring spring = joint.spring;
-        spring.spring = 100;
-        joint.spring = spring;
+        joint.connectedBody = body;
+        joint.zMotion = ConfigurableJointMotion.Locked;
+        joint.xMotion = ConfigurableJointMotion.Locked;
+        joint.yMotion = ConfigurableJointMotion.Locked;
+        joint.rotationDriveMode = RotationDriveMode.Slerp;
+        JointDrive drive =  joint.slerpDrive;
+        drive.positionSpring = 500f;
+        drive.positionDamper = 10f;
+        joint.slerpDrive = drive;
     }
 
     public void Dettach()
