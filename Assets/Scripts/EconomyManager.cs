@@ -6,7 +6,11 @@ public class EconomyManager : MonoBehaviour
     public static EconomyManager Instance {get; private set;}
 
     public TMP_Text Text;
-    public int Coins {get; private set;}
+    private int coins = 0;
+    public int Coins {get{return coins;} set{
+        coins = value;
+        Text.text = coins.ToString();
+    }}
     void Awake() 
     {
         if(Instance == null)
@@ -17,11 +21,5 @@ public class EconomyManager : MonoBehaviour
         }
 
         Destroy(this.gameObject);
-    }
-
-    public void addMoney(int Coins)
-    {
-        this.Coins += Coins;
-        Text.text = Coins.ToString();
     }
 }
