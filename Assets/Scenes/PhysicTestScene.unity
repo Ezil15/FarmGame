@@ -747,5 +747,9 @@ PrefabInstance:
       propertyPath: cursor
       value: 
       objectReference: {fileID: 1688430357}
+    - target: {fileID: 7800732478328923486, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}
+      propertyPath: maxVelocity
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}
