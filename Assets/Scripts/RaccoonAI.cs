@@ -12,6 +12,11 @@ public class RaccoonAI : MonoBehaviour
     private Transform handTransform;
     private GameObject itemInHands;
 
+    private bool captured = false;
+    private float timeInCapture = 0f;
+    [SerializeField]
+    private float timeBeforeEscape = 10f;
+
     [HideInInspector]
     public AnimalAI AnimalAI;
     void Start() {
@@ -20,6 +25,14 @@ public class RaccoonAI : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (captured)
+        {
+            timeInCapture += Time.deltaTime;
+            if (timeInCapture >= timeBeforeEscape)
+                Escape();
+            return;
+        }
+
         if (AnimalAI.DisableAI || itemInHands == null)
             return;
         
@@ -76,5 +89,26 @@ public class RaccoonAI : MonoBehaviour
         itemInHands.GetComponent<InterestingObject>().Locked = false;
         itemInHands = null;
         AnimalAI.InterestedInTarget = true;
+    }
+
+
+    /// <summary>
+    /// Захват енота в плен
+    /// </summary>
+    public void Capture()
+    {
+        Drop();
+        AnimalAI.DisableAI = true;
+        timeInCapture = 0f;
+        captured = true;
+    }
+
+    /// <summary>
+    /// Побег из плена
+    /// </summary>
+    public void Escape()
+    {
+        captured = false;
+        AnimalAI.DisableAI = false;
     }
 }
