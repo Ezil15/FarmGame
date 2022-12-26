@@ -7,9 +7,11 @@ public class DragComponent : MonoBehaviour
     public float mass = 10f;
     public Rigidbody body;
     public ConfigurableJoint joint;
+    public bool isAttached {get; private set;}
     
     void Start()
     {
+        isAttached = false;
         body = GetComponent<Rigidbody>();
     }
 
@@ -29,11 +31,13 @@ public class DragComponent : MonoBehaviour
         drive.positionSpring = 500f;
         drive.positionDamper = 10f;
         joint.slerpDrive = drive;
+        isAttached = true;
     }
 
     public void Dettach()
     {
         Destroy(joint);
+        isAttached = false;
     }
     
 }

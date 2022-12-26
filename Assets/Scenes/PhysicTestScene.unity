@@ -513,6 +513,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1673628918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6091531520415780723, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+  m_PrefabInstance: {fileID: 8148315688726514709}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13086595cb0a634d84d3f38fc5e0f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1688430357
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +696,50 @@ PrefabInstance:
     - target: {fileID: 8148315690533750581, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
       propertyPath: m_Name
       value: TestObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: shakePower
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: shakeMaxDist
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: shakeMinDist
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: shakeCheckTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1673628918}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Dettach
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DragComponent, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810394898683751044, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: OnShake.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
