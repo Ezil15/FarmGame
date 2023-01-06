@@ -12,7 +12,7 @@ public class ResourceComponent : MonoBehaviour
     set {
         isTaken = value;
         if (isTaken && (disappearTickCooldown - currentTick <= 1f))
-           currentTick = 1.5f;      
+           currentTick = -1.5f;      
         }
     }
     [SerializeField]
@@ -31,6 +31,4 @@ public class ResourceComponent : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public void TakeOrDrop() => isTaken = !isTaken;
 }
