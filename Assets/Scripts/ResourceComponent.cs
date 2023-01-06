@@ -1,39 +1,36 @@
 using UnityEngine;
 using UnityEngine.Events;
-
-[System.Serializable]
-public class OnDisappearedEvent : UnityEvent<GameObject> {}
-
 public class ResourceComponent : MonoBehaviour
 {
-    public GameObject Object;
-    public OnDisappearedEvent OnDisappearedEvent;
+    public UnityEvent OnDisappearedEvent;
     public int Price;
     public int Size;
     public bool Despawnable = true;
     private bool isTaken = false;
+    public bool IsTaken {
+    get { return isTaken; }
+    set {
+        isTaken = value;
+        if (isTaken && (disappearTickCooldown - currentTick <= 1f))
+           currentTick = 1.5f;      
+        }
+    }
     [SerializeField]
     private float disappearTickCooldown;
     private float currentTick = 0f;
-    
 
     private void FixedUpdate() 
     {
-        if(!Despawnable)
+        if(!Despawnable || IsTaken)
             return;
-        if(isTaken)
-        {
-            if(disappearTickCooldown - currentTick <= 1f)
-                currentTick = 1.5f;
-            return;
-        }
         currentTick += Time.deltaTime;
 
         if(currentTick >= disappearTickCooldown)
-            OnDisappearedEvent.Invoke(Object);
+        {
+            OnDisappearedEvent?.Invoke();
+            Destroy(gameObject);
+        }
     }
 
     public void TakeOrDrop() => isTaken = !isTaken;
-
-    public void OnDisappeared(GameObject Object) => Destroy(Object);
 }
