@@ -9,6 +9,7 @@ public class DragManager : MonoBehaviour
     public float velocitySensetive = 0.1f;
     public float velocityPower = 10f;
     public float maxVelocity = 5f;    
+    public float interactRadius = 10f;
     private Plane plane = new Plane(Vector3.up, 0);
     private Vector3 oldCursorPos = Vector3.zero;
     private float lastPosCheck;
@@ -40,9 +41,15 @@ public class DragManager : MonoBehaviour
             {
                 if (raycastHit.transform != null && raycastHit.transform.gameObject.GetComponent<DragComponent>())
                 {
-                    objectInHand = raycastHit.transform.gameObject.GetComponent<DragComponent>();
-                    objectInHand.Attach(cursor.GetComponent<Rigidbody>());
-
+                    Vector3 objectPos = raycastHit.transform.position;
+                    objectPos.y = 0;
+                    Vector3 interactCenterPos = transform.position;
+                    interactCenterPos.y = 0;
+                    if ( (objectPos-interactCenterPos).magnitude <= interactRadius)
+                    {
+                        objectInHand = raycastHit.transform.gameObject.GetComponent<DragComponent>();
+                        objectInHand.Attach(cursor.GetComponent<Rigidbody>());
+                    }
                 }
             }
         } //Если объект отпустили
@@ -63,7 +70,13 @@ public class DragManager : MonoBehaviour
         lastPosCheck += Time.deltaTime;
 
         cursor.transform.position = GetCursorPosition();
-
+        Vector3 vectorFromCenter = cursor.transform.position-transform.position;
+        if (vectorFromCenter.magnitude>interactRadius)
+        {
+            vectorFromCenter = vectorFromCenter.normalized * interactRadius;
+            vectorFromCenter.y = 0;
+            cursor.transform.position = transform.position+vectorFromCenter;
+        }
         if (lastPosCheck > velocitySensetive)
         {
             oldCursorPos = GetCursorPosition();
@@ -71,4 +84,5 @@ public class DragManager : MonoBehaviour
         }
         
     }
+
 }

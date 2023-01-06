@@ -34,7 +34,7 @@ public class ShakeComponent : MonoBehaviour
                 lastShakeCheckTime = 0f;
                 bool notInBounds = (Vector3.Distance(transform.position,lastShakePos) > shakeMaxDist ||
                     Vector3.Distance(transform.position,lastShakePos) < shakeMinDist ||
-                    (Vector3.Distance(transform.position,startShakePos) > shakeMaxDist) && startShakePos != Vector3.zero);
+                    (Vector3.Distance(transform.position,startShakePos) > shakeMaxDist/1.5f) && startShakePos != Vector3.zero);
                 lastShakePos = transform.position;
                 if (notInBounds)
                 {
