@@ -12,7 +12,7 @@ public class ResourceComponent : MonoBehaviour
     set {
         isTaken = value;
         if (isTaken && (disappearTickCooldown - currentTick <= 1f))
-           currentTick = -1.5f;      
+           currentTick = disappearTickCooldown -1.5f;      
         }
     }
     [SerializeField]
