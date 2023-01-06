@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Raccoon
       objectReference: {fileID: 0}
+    - target: {fileID: 3419587765868930162, guid: 4c4649229ee07db4cbfba1376e9dd923, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3419587765868930163, guid: 4c4649229ee07db4cbfba1376e9dd923, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -490,10 +494,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Object: {fileID: 1847111772}
+  OnDisappearedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1847111773}
+        m_TargetAssemblyTypeName: ResourceComponent, Assembly-CSharp
+        m_MethodName: OnDisappeared
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Price: 10
+  Size: 0
   Despawnable: 1
-  isTaken: 0
-  size: 0
   disappearTickCooldown: 7
 --- !u!65 &1847111774
 BoxCollider:
