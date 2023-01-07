@@ -336,6 +336,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6094954729633142861, guid: 41fbaff45388f4f4682f951f87fb8d1c, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41fbaff45388f4f4682f951f87fb8d1c, type: 3}
 --- !u!1001 &970893378
@@ -345,6 +349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 970893383, guid: 7bc15c905749f654b94a7f3d89426454, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1066713888077619140, guid: 7bc15c905749f654b94a7f3d89426454, type: 3}
       propertyPath: m_Name
       value: Cursor
@@ -904,6 +912,10 @@ PrefabInstance:
     - target: {fileID: 8148315690533750576, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148315690533750580, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8148315690533750581, guid: 76644114b7eff8647a6a5cf9a0240098, type: 3}
       propertyPath: m_Name
