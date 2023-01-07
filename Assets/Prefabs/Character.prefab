@@ -220,7 +220,10 @@ MonoBehaviour:
   rotationSpeed: 1
   model: {fileID: 3608481355803455217}
   velocity: {x: 0, y: 0, z: 0}
-  isWalking: 0
+  isWalking: 1
+  maxVelocityMagnitude: 0.4
+  jumpHeight: 3
+  jumpForceModifier: 3
 --- !u!54 &6094954729633142861
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -247,7 +250,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.48
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -272,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3232533402225340867, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.44
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3232533402225340867, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -313,6 +316,10 @@ PrefabInstance:
     - target: {fileID: 7800732478328923486, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}
       propertyPath: maxVelocity
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800732478328923486, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}
+      propertyPath: interactRadius
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18c1d3cfd3cca7b4bb9fbc7de9ed400a, type: 3}

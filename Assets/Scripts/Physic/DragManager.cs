@@ -10,6 +10,7 @@ public class DragManager : MonoBehaviour
     public float velocityPower = 10f;
     public float maxVelocity = 5f;    
     public float interactRadius = 10f;
+    public float minInteractRadius = 0.5f;
     private Plane plane = new Plane(Vector3.up, 0);
     private Vector3 oldCursorPos = Vector3.zero;
     private float lastPosCheck;
@@ -21,7 +22,7 @@ public class DragManager : MonoBehaviour
         if (plane.Raycast(ray, out distance))
         {
             Vector3 pos = ray.GetPoint(distance);
-            pos.y = 3;
+            pos.y = gameObject.transform.position.y;
             return pos;
         }
         else
@@ -45,7 +46,8 @@ public class DragManager : MonoBehaviour
                     objectPos.y = 0;
                     Vector3 interactCenterPos = transform.position;
                     interactCenterPos.y = 0;
-                    if ( (objectPos-interactCenterPos).magnitude <= interactRadius)
+                    float magnitude = (objectPos-interactCenterPos).magnitude;
+                    if ( minInteractRadius <= magnitude && magnitude <= interactRadius)
                     {
                         objectInHand = raycastHit.transform.gameObject.GetComponent<DragComponent>();
                         objectInHand.Attach(cursor.GetComponent<Rigidbody>());
@@ -74,6 +76,12 @@ public class DragManager : MonoBehaviour
         if (vectorFromCenter.magnitude>interactRadius)
         {
             vectorFromCenter = vectorFromCenter.normalized * interactRadius;
+            vectorFromCenter.y = 0;
+            cursor.transform.position = transform.position+vectorFromCenter;
+        }
+        if (vectorFromCenter.magnitude<minInteractRadius)
+        {
+            vectorFromCenter = vectorFromCenter.normalized * minInteractRadius;
             vectorFromCenter.y = 0;
             cursor.transform.position = transform.position+vectorFromCenter;
         }

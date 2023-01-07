@@ -10,16 +10,21 @@ public class MovementScript : MonoBehaviour
     public GameObject model;
     public Vector3 velocity = Vector3.zero;
     public bool isWalking = false;
-    
+    public float maxVelocityMagnitude = 5f;
     private float horizontal;
     private float vertical;
     private Rigidbody body;
+
+
+    public float jumpHeight;
+    public float jumpForceModifier;
     void Start()
     {
         body = gameObject.GetComponent<Rigidbody>();
     }
     void FixedUpdate()
     {
+        velocity = Vector3.zero;
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical"); 
         if (horizontal == 1)
@@ -40,15 +45,25 @@ public class MovementScript : MonoBehaviour
         }
         float yValue = body.velocity.y;
         velocity = Vector3.ClampMagnitude(velocity, 1);
+        if (velocity.magnitude > 0 && body.velocity.y > -0.1f && body.velocity.y <= 0)
+        {   
+            velocity = velocity * jumpForceModifier;
+            velocity.y = jumpHeight;
+            body.AddForce(velocity, ForceMode.Impulse);
+            body.velocity = Vector3.ClampMagnitude(body.velocity,maxVelocityMagnitude);
+        }
         
-        velocity = velocity / speedReduction;
+        
         //velocity = velocity * speed;
         //velocity.y = yValue;
-        body.velocity = velocity*speed;
-        Vector3 newVelocity = body.velocity;
-        newVelocity.y = yValue;
-        body.velocity = newVelocity;
-        if(velocity.magnitude>0.2f)
+        
+        //body.velocity = velocity*speed;
+        //Vector3 newVelocity = body.velocity;
+        //newVelocity.y = yValue;
+        //body.velocity = newVelocity;
+
+       
+        if(velocity.magnitude > 0.2f)
         {
             Quaternion newRotation = Quaternion.LookRotation(velocity) ;
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, 0.2f);
