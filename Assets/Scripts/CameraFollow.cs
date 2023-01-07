@@ -2,23 +2,16 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform Target;
-
-    public Vector3 Offset;
-
-    public float Speed = 0.3f;
-
-    public Vector3 Velocity = Vector3.zero;
+    public GameObject target;
+    public Vector3 offset;
+    public float smooth;
+    Vector3 velocity = new Vector3(0,0,0);
 
     void FixedUpdate() 
     {
-        if(Target != null)
+        if(target != null)
         {
-            Vector3 DesiredPosition = Target.position + Offset;
-            //Vector3 SmoothedPosition = Vector3.Lerp(transform.position, DesiredPosition, Speed);
-            transform.position = Vector3.SmoothDamp(transform.position, DesiredPosition, ref Velocity, Speed);
-            
-            transform.LookAt(Target);
+            transform.position = Vector3.Lerp(transform.position,target.transform.position+offset,smooth);
         }
     }
 }
