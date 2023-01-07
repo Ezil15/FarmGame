@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13086595cb0a634d84d3f38fc5e0f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 10
+  mass: 0.2
   body: {fileID: 0}
   joint: {fileID: 0}
 --- !u!114 &8810394898683751044
@@ -243,6 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e162b6f9249c5547955d7b37d409d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &8148315690533750580
 Rigidbody:
   m_ObjectHideFlags: 0
