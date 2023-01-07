@@ -87,8 +87,7 @@ public class AnimalAI : MonoBehaviour
                         if (!InterestingObjectTypes.Contains(obj.Type))
                             continue;
                         
-                        if (OnReachTargetEvent != null)
-                            OnReachTargetEvent.Invoke(Target);
+                        OnReachTargetEvent?.Invoke(Target);
 
                         return;
                     }
