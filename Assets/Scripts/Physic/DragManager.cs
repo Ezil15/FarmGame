@@ -8,7 +8,10 @@ public class DragManager : MonoBehaviour
     public GameObject cursor;
     public float velocitySensetive = 0.1f;
     public float velocityPower = 10f;
-    public float maxVelocity = 5f;    
+    public float maxVelocity = 5f;
+    public float dragStartHeight = 1f;
+    public float dragEndHeight = 3f;  
+    public float dragHeightSpeed = 3f;  
     public float interactRadius = 10f;
     public float minInteractRadius = 0.5f;
     private Plane plane = new Plane(Vector3.up, 0);
@@ -22,7 +25,7 @@ public class DragManager : MonoBehaviour
         if (plane.Raycast(ray, out distance))
         {
             Vector3 pos = ray.GetPoint(distance);
-            pos.y = gameObject.transform.position.y;
+            pos.y = dragEndHeight;
             return pos;
         }
         else
@@ -71,19 +74,26 @@ public class DragManager : MonoBehaviour
     {
         lastPosCheck += Time.deltaTime;
 
-        cursor.transform.position = GetCursorPosition();
-        Vector3 vectorFromCenter = cursor.transform.position-transform.position;
-        if (vectorFromCenter.magnitude>interactRadius)
+        Vector3 newCursorPosition = GetCursorPosition();
+        if (objectInHand != null)
         {
-            vectorFromCenter = vectorFromCenter.normalized * interactRadius;
-            vectorFromCenter.y = 0;
-            cursor.transform.position = transform.position+vectorFromCenter;
+            newCursorPosition.y = Mathf.Lerp(cursor.transform.position.y, dragEndHeight, Time.deltaTime*dragHeightSpeed);
         }
-        if (vectorFromCenter.magnitude<minInteractRadius)
+        else
         {
-            vectorFromCenter = vectorFromCenter.normalized * minInteractRadius;
+            newCursorPosition.y = dragStartHeight;
+        }
+        cursor.transform.position = newCursorPosition;
+        Vector3 vectorFromCenter = cursor.transform.position-transform.position;
+        if (vectorFromCenter.magnitude>interactRadius || vectorFromCenter.magnitude<minInteractRadius)
+        {
+            float oldCursorY = cursor.transform.position.y;
+            vectorFromCenter = vectorFromCenter.normalized * 
+                (vectorFromCenter.magnitude>interactRadius ? interactRadius : minInteractRadius);
             vectorFromCenter.y = 0;
-            cursor.transform.position = transform.position+vectorFromCenter;
+            newCursorPosition = transform.position+vectorFromCenter;
+            newCursorPosition.y = oldCursorY;
+            cursor.transform.position = newCursorPosition;
         }
         if (lastPosCheck > velocitySensetive)
         {
