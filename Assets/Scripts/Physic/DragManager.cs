@@ -9,7 +9,7 @@ public class DragManager : MonoBehaviour
     public float velocitySensetive = 0.1f;
     public float velocityPower = 10f;
     public float maxVelocity = 5f;
-    public float dragStartHeight = 1f;
+    public float dragStartHeight = 2f;
     public float dragEndHeight = 3f;  
     public float dragHeightSpeed = 3f;  
     public float interactRadius = 10f;
@@ -75,9 +75,9 @@ public class DragManager : MonoBehaviour
         lastPosCheck += Time.deltaTime;
 
         Vector3 newCursorPosition = GetCursorPosition();
-        if (objectInHand != null)
+        if (objectInHand != null && dragEndHeight != cursor.transform.position.y)
         {
-            newCursorPosition.y = Mathf.Lerp(cursor.transform.position.y, dragEndHeight, Time.deltaTime*dragHeightSpeed);
+            newCursorPosition.y = Mathf.Lerp(cursor.transform.position.y, dragEndHeight, Time.deltaTime * (dragHeightSpeed - (objectInHand.mass/20)));
         }
         else
         {
